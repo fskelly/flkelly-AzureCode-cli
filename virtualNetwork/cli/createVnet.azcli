@@ -8,6 +8,11 @@ VNET_NAME="" #EXAMPLE "Network1"
 SUBNET_NAME="" #EXAMPLE "subnet1"
 VNET_PREFIX="" #EXAMPLE 172.16.0.0/16
 SUBNET_PREFIX="" #EXAMPLE 172.16.1.0/24
+VNET_LOCATION = "" #EXAMPLE westeurope
 
 az account set --subscription ${SUB_ID}
-az network vnet create -g ${RG_NAME} -n ${VNET_NAME} --address-prefix ${VNET_PREFIX} --subnet-name ${SUBNET_NAME} --subnet-prefix ${SUBNET_PREFIX}
+az network vnet create -g ${RG_NAME} -n ${VNET_NAME} --address-prefix ${VNET_PREFIX} --subnet-name ${SUBNET_NAME} --subnet-prefixes ${SUBNET_PREFIX} --location ${VNET_LOCATION}
+
+##return subnetID - EXAMPLE
+subnetId=$(az network vnet subnet show --resource-group ${RG_NAME} --name ${SUBNET_NAME} --vnet-name ${VNET_NAME} --query id -o tsv)
+echo $subnetId
