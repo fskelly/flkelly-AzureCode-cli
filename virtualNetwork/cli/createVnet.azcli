@@ -1,18 +1,18 @@
-SUB_ID="" #EXAMPLE XX-YYYY-ZZZ
+subId="" #EXAMPLE XX-YYYY-ZZZ
 
-RG_NAME="" #EXAMPLE "RG1"
+resourceGroupName="" #EXAMPLE "RG1"
 
-REGION="" #EXAMPLE "southafricanorth"
+region="" #EXAMPLE "southafricanorth"
 
-VNET_NAME="" #EXAMPLE "Network1"
-SUBNET_NAME="" #EXAMPLE "subnet1"
-VNET_PREFIX="" #EXAMPLE 172.16.0.0/16
-SUBNET_PREFIX="" #EXAMPLE 172.16.1.0/24
-VNET_LOCATION = "" #EXAMPLE westeurope
+vnetName="" #EXAMPLE "Network1"
+subnetName="" #EXAMPLE "subnet1"
+vnetPrefix="" #EXAMPLE 172.16.0.0/16
+subnetPrefix="" #EXAMPLE 172.16.1.0/24
+vnetLocation = "" #EXAMPLE westeurope
 
-az account set --subscription ${SUB_ID}
-az network vnet create -g ${RG_NAME} -n ${VNET_NAME} --address-prefix ${VNET_PREFIX} --subnet-name ${SUBNET_NAME} --subnet-prefixes ${SUBNET_PREFIX} --location ${VNET_LOCATION}
+az account set --subscription ${subId}
+az network vnet create -g ${resourceGroupName} -n ${vnetName} --address-address-prefixes ${vnetPrefix} --subnet-name ${subnetName} --subnet-prefixes ${subnetPrefix} --location ${vnetLocation}
 
 ##return subnetID - EXAMPLE
-subnetId=$(az network vnet subnet show --resource-group ${RG_NAME} --name ${SUBNET_NAME} --vnet-name ${VNET_NAME} --query id -o tsv)
+subnetId=$(az network vnet subnet show --resource-group ${resourceGroupName} --name ${subnetName} --vnet-name ${vnetName} --query id -o tsv)
 echo $subnetId

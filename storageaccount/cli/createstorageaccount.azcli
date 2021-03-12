@@ -1,7 +1,13 @@
 #Create STORAGE ACCOUNT
 #fill in variables below as needed
-RESOURCEGROUP=""
-STORAGEACCOUNTNAME=""
-RESOURCEGROUP=""
-LOCATION=""
-az storage account create --name $STORAGEACCOUNTNAME --resource-group $RESOURCEGROUP --location $LOCATION --sku Standard_LRS --kind StorageV2
+
+subId="" #EXAMPLE XX-YYYY-ZZZ
+
+resourceGroupName=""
+storagewAccountName=""
+resourceGroupName=""
+location=""
+
+## Connect to subscription
+az account set --subscription ${subId}
+az storage account create --name $storagewAccountName --resource-group $resourceGroupName --location $location --sku Standard_LRS --kind StorageV2

@@ -1,5 +1,5 @@
-#Create SRESOURCE GROUP
+#Create RESOURCE GROUP
 #fill in variables below as needed
-RESOURCEGROUP=""
-LOCATION=""
-az group create --name ${RESOURCEGROUP} --location ${LOCATION}
+resourceGroupName=""
+location=""
+az group create --name ${resourceGroupName} --location ${location}

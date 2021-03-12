@@ -1,0 +1,10 @@
+#Create KEY VAULT
+#fill in variables below as needed
+resourceGroup=""
+location=""
+keyVault=""
+
+az keyvault create --location $location --name $keyVault --resource-group $resourceGroup
+
+## disk encryption option
+## az keyvault create --location $location --name $keyVault --resource-group $resourceGroup --enabled-for-disk-encryption

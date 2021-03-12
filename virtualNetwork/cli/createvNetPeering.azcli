@@ -1,20 +1,23 @@
-SUB_ID="" #EXAMPLE XX-YYYY-ZZZ
+subid="" #EXAMPLE XX-YYYY-ZZZ
 
-RG_NAME="" #EXAMPLE "RG1"
+resourceGroupName="" #EXAMPLE "RG1"
 
-REGION="" #EXAMPLE "southafricanorth"
+region="" #EXAMPLE "southafricanorth"
 
-VNET1="" #EXAMPLE "first vnet to peer"
-VNET2="" #EXAMPLE "second vnet to peer"
+vnet1Name="" #EXAMPLE "first vnet to peer"
+vnet2Name="" #EXAMPLE "second vnet to peer"
+
+# Connect to subscription
+az account set --subscription ${subId}
 
 # Get the id for myVirtualNetwork1.
-vNet1Id=$(az network vnet show --resource-group ${RG_NAME} --name ${VNET1} --query id --out tsv)
+vnet1NameId=$(az network vnet show --resource-group ${resourceGroupName} --name ${vnet1Name} --query id --out tsv)
 
 # Get the id for myVirtualNetwork2.
-vNet2Id=$(az network vnet show --resource-group ${RG_NAME} --name ${VNET2} --query id --out tsv)
+vnet2NameId=$(az network vnet show --resource-group ${resourceGroupName} --name ${vnet2Name} --query id --out tsv)
 
-VNET1_CONNECT_NAME=$VNET1"-"$VNET2
-VNET2_CONNECT_NAME=$VNET2"-"$VNET1
+vnet1Name_CONNECT_NAME=$vnet1Name"-"$vnet2Name
+vnet2Name_CONNECT_NAME=$vnet2Name"-"$vnet1Name
 
-az network vnet peering create --name ${VNET1_CONNECT_NAME} --resource-group ${RG_NAME} --vnet-name ${VNET1} --remote-vnet-id $vNet2Id --allow-vnet-access --allow-gateway-transit
-az network vnet peering create --name ${VNET2_CONNECT_NAME} --resource-group ${RG_NAME} --vnet-name ${VNET2} --remote-vnet-id $vNet1Id --allow-vnet-access --use-remote-gateways
+az network vnet peering create --name ${vnet1Name_CONNECT_NAME} --resource-group ${resourceGroupName} --vnet-name ${vnet1Name} --remote-vnet-id $vnet2NameId --allow-vnet-access --allow-gateway-transit
+az network vnet peering create --name ${vnet2Name_CONNECT_NAME} --resource-group ${resourceGroupName} --vnet-name ${vnet2Name} --remote-vnet-id $vnet1NameId --allow-vnet-access --use-remote-gateways
