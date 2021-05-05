@@ -1,0 +1,5 @@
+az account list-locations
+
+az account list-locations --query "[?not_null(metadata.latitude)] .{RegionName:name}" --output json
+
+az account list-locations --query "[?not_null(metadata.latitude)] .{RegionName:name, PairedRegion:metadata.pairedRegion[0].name}" --output json
