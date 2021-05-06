@@ -1,0 +1,40 @@
+subIds=$(az account list --query "[].id" --output tsv)
+
+##convert this to an array
+mySubIdArray=($subIds)
+declare -i subCount=${#mySubIdArray[@]}
+
+##echo "My array: ${mySubIdArray[@]}"
+##echo "Number of elements in the array: ${#mySubIdArray[@]}"
+#for (( i=0; i<=${#mySubIdArray[@]}; i++ )); do
+#     echo "${mySubIdArray[$i]}"
+#done
+
+COUNT=1
+for subId in $subIds
+do
+    subname=$(az account show --subscription ${subId} --query 'name')
+    #echo $COUNT
+    echo -e "[$COUNT] : $subname - $subId"
+    let COUNT++
+done
+
+#read -p 'Select number & press enter : ' subscriptionChoice
+
+
+until [ $subscriptionChoice -le $subCount ]
+do
+  ##echo Counter: $counter
+  ##((counter++))
+  echo $subscriptionChoice
+  if [[ $subscriptionChoice -eq "0" ]] ; then
+    echo "0"
+    read -p "Select number & press enter : " subscriptionChoice
+  fi
+  read -p "Select number & press enter : " subscriptionChoice
+  #echo $choice
+  #declare -i subscriptionChoice=choice
+  echo "subchoice : $subscriptionChoice"
+  echo "echo ${mySubIdArray[$subscriptionChoice-1]}"
+  echo "subcount : $subCount"
+done
