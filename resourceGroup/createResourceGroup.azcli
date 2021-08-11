@@ -1,5 +1,11 @@
 #Create RESOURCE GROUP
+## bash terminal
 #fill in variables below as needed
 resourceGroupName=""
 location=""
 az group create --name ${resourceGroupName} --location ${location}
+
+##powershell terminal
+$resourceGroupName = ""
+$location = ""
+az group create --name $resourceGroupName --location $location
