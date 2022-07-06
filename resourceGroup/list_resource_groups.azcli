@@ -1,0 +1,24 @@
+# list based on name
+
+## Get ID within a column
+query_string='ala'
+az group list --query "[?contains(name, '$query_string')].[id]" --output table
+
+## Return only ID
+query_string='ala'
+az group list --query "[?contains(name, '$query_string')].[id]" --output tsv
+
+## Starts  with example
+query_string='cli'
+az group list --query "[?starts_with(name, '$query_string')].[id]" --output tsv
+
+## Ends with example
+query_string='resources'
+az group list --query "[?ends_with(name, '$query_string')].[id]" --output tsv
+
+## working with arrays
+query_string='westeurope'
+rgArray=($(az group list --output tsv --query "[?location != '$query_string'].name"))
+echo ${rgArray[0]}
+echo ${rgArray[*]}
+echo ${#rgArray[*]}
