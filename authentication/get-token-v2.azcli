@@ -1,3 +1,5 @@
+#option 1
+
 read -p "Enter your Azure tenant ID: " tenantId
 read -p "Enter your Azure client ID: " clientId
 read -s -p "Enter your client secret: " clientSecret
@@ -5,4 +7,22 @@ echo ""
 
 accessToken=$(curl -X POST -d "grant_type=client_credentials&scope=https://management.azure.com/.default&client_id=$clientId&client_secret=$clientSecret" "https://login.microsoftonline.com/$tenantId/oauth2/v2.0/token" | jq -r '.access_token')
 
-echo $accessToken
+echo "Token is $accessToken"
+
+#option 2
+
+az login --scope https://management.core.windows.net//.default
+
+read -p "Enter your Azure tenant ID: " tenantId
+#read -p "Enter your Azure client ID: " clientId
+#read -sp "Enter your client secret: " clientSecret
+
+authResult=$(az account get-access-token --tenant=$tenantId --query "accessToken" --output tsv)
+
+if [ -z "$authResult" ]; then
+    echo "Token is empty"
+else
+    # Output the access token
+    token=${authResult#*\"access_token\":\"}; token=${token%%\"*}
+    echo "Token is $token"
+fi
