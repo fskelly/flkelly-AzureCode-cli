@@ -1,6 +1,9 @@
 read -p "Enter your subscription ID: " subscriptionId
 apiVersion="2020-09-01"
-accessToken=$(az account get-access-token --resource=https://management.azure.com --query accessToken -o tsv)
+
+# step below can be used to get the access token for the current session
+#accessToken=$(az account get-access-token --resource=https://management.azure.com --query accessToken -o tsv)
+
 headers="Authorization: Bearer $accessToken"
 uri="https://management.azure.com/subscriptions/$subscriptionId/resourcegroups?api-version=$apiVersion"
 queryResult=$(curl -s -H "$headers" -X GET $uri)
