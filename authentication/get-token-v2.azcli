@@ -23,6 +23,6 @@ if [ -z "$authResult" ]; then
     echo "Token is empty"
 else
     # Output the access token
-    token=${authResult#*\"access_token\":\"}; token=${token%%\"*}
-    echo "Token is $token"
+    accessToken=${authResult#*\"access_token\":\"}; token=${token%%\"*}
+    echo "Token is $accessToken"
 fi
